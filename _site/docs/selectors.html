@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Stylus</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css">
+    <!--[if lt IE 9]><script src="../js/vendor/selectivizr-1.0.2.min.js"></script><![endif]-->
+    <script src="../js/vendor/modernizr-2.8.2.min.js"></script>
+    <script src="../js/vendor/respond.js-1.4.2.min.js"></script>
+    <link rel="shortcut icon" href="../img/favicon.ico">
+  </head>
+  <body>
+    <!--[if lt IE 9]>
+      <div class="browsehappy">
+        <p>
+          You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve your experience.
+        </p>
+      </div>
+    <![endif]-->
+
+
+    <div class="wrap">
+
+      <aside class="sidebar">
+        <a href="/">
+          <img src="../img/stylus-logo-white.svg">
+        </a>
+        <nav>
+          
+          
+            <a href="/docs/atrules.html">Atrules</a>
+          
+            <a href="/docs/bifs.html">Bifs</a>
+          
+            <a href="/docs/block.html">Block</a>
+          
+            <a href="/docs/comments.html">Comments</a>
+          
+            <a href="/docs/compare.html">Compare</a>
+          
+            <a href="/docs/conditionals.html">Conditionals</a>
+          
+            <a href="/docs/css-style.html">Css Style</a>
+          
+            <a href="/docs/error-reporting.html">Error Reporting</a>
+          
+            <a href="/docs/escape.html">Escape</a>
+          
+            <a href="/docs/executable.html">Executable</a>
+          
+            <a href="/docs/extend.html">Extend</a>
+          
+            <a href="/docs/firebug.html">Firebug</a>
+          
+            <a href="/docs/font-face.html">Font Face</a>
+          
+            <a href="/docs/functions.html">Functions</a>
+          
+            <a href="/docs/functions.url.html">Functions.url</a>
+          
+            <a href="/docs/gedit.html">Gedit</a>
+          
+            <a href="/docs/hashes.html">Hashes</a>
+          
+            <a href="/docs/import.html">Import</a>
+          
+            <a href="/docs/interpolation.html">Interpolation</a>
+          
+            <a href="/docs/introspection.html">Introspection</a>
+          
+            <a href="/docs/iteration.html">Iteration</a>
+          
+            <a href="/docs/js.html">Js</a>
+          
+            <a href="/docs/keyframes.html">Keyframes</a>
+          
+            <a href="/docs/kwargs.html">Kwargs</a>
+          
+            <a href="/docs/literal.html">Literal</a>
+          
+            <a href="/docs/media.html">Media</a>
+          
+            <a href="/docs/middleware.html">Middleware</a>
+          
+            <a href="/docs/mixins.html">Mixins</a>
+          
+            <a href="/docs/operators.html">Operators</a>
+          
+            <a href="/docs/selectors.html">Selectors</a>
+          
+            <a href="/docs/sourcemaps.html">Sourcemaps</a>
+          
+            <a href="/docs/textmate.html">Textmate</a>
+          
+            <a href="/docs/vargs.html">Vargs</a>
+          
+            <a href="/docs/variables.html">Variables</a>
+          
+        </nav>
+        <a href="http://launchboxhq.com">
+          <img class="credit" src="../img/launchbox.svg" title="Web-design and hosting">
+        </a>
+        <a href="https://learnboost.com">
+          <img class="credit" src="../img/learnboost.png" title="Creators of Stylus">
+        </a>
+        <a href="https://mojotech.com">
+          <img class="credit" src="../img/mojotech.png" title="Logo">
+        </a>
+      </aside>
+
+      <main class="content">
+        <header class="logo">
+          <a href="/">
+            <img src="../img/stylus-logo.svg">
+          </a>
+        </header>
+
+        <div class="docs">
+
+          <h1 id="selectors">Selectors</h1>
+
+<h2 id="indentation">Indentation</h2>
+
+<p>Stylus is “pythonic” (i.e. indentation-based). Whitespace is significant, so we substitute <code>{</code> and <code>}</code> with an <em>indent</em>, and an <em>outdent</em> as shown below:</p>
+
+<pre><code>body
+  color white
+</code></pre>
+
+<p>Which compiles to:</p>
+
+<pre><code>body {
+  color: #fff;
+}
+</code></pre>
+
+<p>If preferred, you can use colons to separate properties and values:</p>
+
+<pre><code>body
+  color: white
+</code></pre>
+
+<h2 id="rule-sets">Rule Sets</h2>
+
+<p>Stylus, just like CSS, allows you to define properties for several selectors at once through comma separation.</p>
+
+<pre><code>textarea, input
+  border 1px solid #eee
+</code></pre>
+
+<p>The same can be done with a newline:</p>
+
+<pre><code>textarea
+input
+  border 1px solid #eee
+</code></pre>
+
+<p>Both compile to:</p>
+
+<pre><code>textarea,
+input {
+  border: 1px solid #eee;
+}
+</code></pre>
+
+<p><strong>The only exception to this rule</strong> are selectors that look like properties. For example, the following <code>foo bar baz</code> might be a property <strong>or</strong> a selector:</p>
+
+<pre><code>foo bar baz
+&gt; input
+  border 1px solid
+</code></pre>
+
+<p>So for this reason (or simply if preferred), we may trail with a comma:</p>
+
+<pre><code>foo bar baz,
+form input,
+&gt; a
+  border 1px solid
+</code></pre>
+
+<h2 id="parent-reference">Parent Reference</h2>
+
+<p>The <code>&amp;</code> character references the parent selector(s). In the example below our two selectors (<code>textarea</code> and <code>input</code>) both alter the <code>color</code> on the <code>:hover</code> pseudo selector. </p>
+
+<pre><code>textarea
+input
+  color #A7A7A7
+  &amp;:hover
+    color #000
+</code></pre>
+
+<p>Compiles to:</p>
+
+<pre><code>textarea,
+input {
+  color: #a7a7a7;
+}
+textarea:hover,
+input:hover {
+  color: #000;
+}
+</code></pre>
+
+<p>Below is an example providing a simple <code>2px</code> border for Internet Exploder utilizing the parent reference within a mixin:</p>
+
+<pre><code>  box-shadow()
+    -webkit-box-shadow arguments
+    -moz-box-shadow arguments
+    box-shadow arguments
+    html.ie8 &amp;,
+    html.ie7 &amp;,
+    html.ie6 &amp;
+      border 2px solid arguments[length(arguments) - 1]
+
+  body
+    #login
+      box-shadow 1px 1px 3px #eee
+</code></pre>
+
+<p>Yielding:</p>
+
+<pre><code>  body #login {
+    -webkit-box-shadow: 1px 1px 3px #eee;
+    -moz-box-shadow: 1px 1px 3px #eee;
+    box-shadow: 1px 1px 3px #eee;
+  }
+  html.ie8 body #login,
+  html.ie7 body #login,
+  html.ie6 body #login {
+    border: 2px solid #eee;
+  }
+</code></pre>
+
+<p>If you’d need to use the ampersand symbol in a selector without it behaving like a parent reference, you can just escape it:</p>
+
+<pre><code>.foo[title*='\&amp;']
+// =&gt; .foo[title*='&amp;']
+</code></pre>
+
+<h2 id="root-reference">Root Reference</h2>
+
+<p>The <code>/</code> character at the start of the selector is a root reference. It references the root context and this means the selector won’t prepend the parent’s selector to it (unless you would use it with <code>&amp;</code>). It is helpful when you need to write some styles both to some nested selector and to another one, not in the current scope.</p>
+
+<pre><code>textarea
+input
+  color #A7A7A7
+  &amp;:hover,
+  /.is-hovered
+    color #000
+</code></pre>
+
+<p>Compiles to:</p>
+
+<pre><code>textarea,
+input {
+  color: #a7a7a7;
+}
+textarea:hover,
+input:hover,
+.is-hovered {
+  color: #000;
+}
+</code></pre>
+
+<h2 id="selector-bif">selector() bif</h2>
+
+<p>You can use the built-in <code>selector()</code> to get the current compiled selector. Could be used inside mixins for checks or other clever things.</p>
+
+<pre><code>.foo
+  selector()
+// =&gt; '.foo'
+
+.foo
+  &amp;:hover
+    selector()
+// '.foo:hover'
+</code></pre>
+
+<p>This bif could also accept an optional string argument, in this case it would return the compiled selector. Note that it wouldn’t prepend the selector of the current scope in case it don’t have any <code>&amp;</code> symbols.</p>
+
+<pre><code>.foo
+  selector('.bar')
+// =&gt; '.bar'
+
+.foo
+  selector('&amp;:hover')
+// '.foo:hover'
+</code></pre>
+
+<h2 id="disambiguation">Disambiguation</h2>
+
+<p>Expressions such as <code>padding - n</code> could be interpreted both as a subtraction operation, as well as a property with an unary minus. To disambiguate, wrap the expression with parens:</p>
+
+<pre><code>pad(n)
+  padding (- n)
+
+body
+  pad(5px)
+</code></pre>
+
+<p>Compiles to:</p>
+
+<pre><code>body {
+  padding: -5px;
+}
+</code></pre>
+
+<p>However, this is only true in functions (since functions act both as mixins, or calls with return values). </p>
+
+<p>For example, the following is fine (and yields the same results as above):</p>
+
+<pre><code>body
+  padding -5px
+</code></pre>
+
+<p>Have weird property values that Stylus can’t process? <code>unquote()</code> can help you out:</p>
+
+<pre><code>filter unquote('progid:DXImageTransform.Microsoft.BasicImage(rotation=1)')
+</code></pre>
+
+<p>Yields:</p>
+
+<pre><code>filter progid:DXImageTransform.Microsoft.BasicImage(rotation=1)
+</code></pre>
+
+
+        </div>
+
+        <a href="https://github.com/LearnBoost/stylus/" class="meow">
+          <img src="../img/octocat.svg">
+        </a>
+      </main>
+
+    </div>
+
+
+    <!--[if lt IE 9]>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-2.1.1.min.js"><\/script>')</script>
+    <!--<![endif]-->
+    <script src="../js/plugins.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59751437-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>

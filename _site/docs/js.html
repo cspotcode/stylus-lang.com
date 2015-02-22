@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Stylus</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css">
+    <!--[if lt IE 9]><script src="../js/vendor/selectivizr-1.0.2.min.js"></script><![endif]-->
+    <script src="../js/vendor/modernizr-2.8.2.min.js"></script>
+    <script src="../js/vendor/respond.js-1.4.2.min.js"></script>
+    <link rel="shortcut icon" href="../img/favicon.ico">
+  </head>
+  <body>
+    <!--[if lt IE 9]>
+      <div class="browsehappy">
+        <p>
+          You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve your experience.
+        </p>
+      </div>
+    <![endif]-->
+
+
+    <div class="wrap">
+
+      <aside class="sidebar">
+        <a href="/">
+          <img src="../img/stylus-logo-white.svg">
+        </a>
+        <nav>
+          
+          
+            <a href="/docs/atrules.html">Atrules</a>
+          
+            <a href="/docs/bifs.html">Bifs</a>
+          
+            <a href="/docs/block.html">Block</a>
+          
+            <a href="/docs/comments.html">Comments</a>
+          
+            <a href="/docs/compare.html">Compare</a>
+          
+            <a href="/docs/conditionals.html">Conditionals</a>
+          
+            <a href="/docs/css-style.html">Css Style</a>
+          
+            <a href="/docs/error-reporting.html">Error Reporting</a>
+          
+            <a href="/docs/escape.html">Escape</a>
+          
+            <a href="/docs/executable.html">Executable</a>
+          
+            <a href="/docs/extend.html">Extend</a>
+          
+            <a href="/docs/firebug.html">Firebug</a>
+          
+            <a href="/docs/font-face.html">Font Face</a>
+          
+            <a href="/docs/functions.html">Functions</a>
+          
+            <a href="/docs/functions.url.html">Functions.url</a>
+          
+            <a href="/docs/gedit.html">Gedit</a>
+          
+            <a href="/docs/hashes.html">Hashes</a>
+          
+            <a href="/docs/import.html">Import</a>
+          
+            <a href="/docs/interpolation.html">Interpolation</a>
+          
+            <a href="/docs/introspection.html">Introspection</a>
+          
+            <a href="/docs/iteration.html">Iteration</a>
+          
+            <a href="/docs/js.html">Js</a>
+          
+            <a href="/docs/keyframes.html">Keyframes</a>
+          
+            <a href="/docs/kwargs.html">Kwargs</a>
+          
+            <a href="/docs/literal.html">Literal</a>
+          
+            <a href="/docs/media.html">Media</a>
+          
+            <a href="/docs/middleware.html">Middleware</a>
+          
+            <a href="/docs/mixins.html">Mixins</a>
+          
+            <a href="/docs/operators.html">Operators</a>
+          
+            <a href="/docs/selectors.html">Selectors</a>
+          
+            <a href="/docs/sourcemaps.html">Sourcemaps</a>
+          
+            <a href="/docs/textmate.html">Textmate</a>
+          
+            <a href="/docs/vargs.html">Vargs</a>
+          
+            <a href="/docs/variables.html">Variables</a>
+          
+        </nav>
+        <a href="http://launchboxhq.com">
+          <img class="credit" src="../img/launchbox.svg" title="Web-design and hosting">
+        </a>
+        <a href="https://learnboost.com">
+          <img class="credit" src="../img/learnboost.png" title="Creators of Stylus">
+        </a>
+        <a href="https://mojotech.com">
+          <img class="credit" src="../img/mojotech.png" title="Logo">
+        </a>
+      </aside>
+
+      <main class="content">
+        <header class="logo">
+          <a href="/">
+            <img src="../img/stylus-logo.svg">
+          </a>
+        </header>
+
+        <div class="docs">
+
+          <h1 id="javascript-api">JavaScript API</h1>
+
+<p>Simply <code>require</code> the module, and call <code>render()</code> with the given string of Stylus code, and (optional) <code>options</code> object. </p>
+
+<p>Frameworks utilizing Stylus should pass the <code>filename</code> option to provide better error reporting.</p>
+
+<pre><code>var stylus = require('stylus');
+
+stylus.render(str, { filename: 'nesting.css' }, function(err, css){
+  if (err) throw err;
+  console.log(css);
+});
+</code></pre>
+
+<p>We can also do the same thing in a more progressive manner:</p>
+
+<pre><code>var stylus = require('stylus');
+
+stylus(str)
+  .set('filename', 'nesting.css')
+  .render(function(err, css){
+    // logic
+  });
+</code></pre>
+
+<h2 id="setsetting-value">.set(setting, value)</h2>
+
+<p>Apply a setting such as a <code>filename</code>, or import <code>paths</code>:</p>
+
+<pre><code> .set('filename', __dirname + '/test.styl')
+ .set('paths', [__dirname, __dirname + '/mixins'])
+</code></pre>
+
+<h2 id="includepath">.include(path)</h2>
+
+<p>A progressive alternative to <code>.set('paths',...)</code> is <code>.include()</code>.  This is ideal when exposing external Stylus libraries which expose a path.</p>
+
+<pre><code>stylus(str)
+  .include(require('nib').path)
+  .include(process.env.HOME + '/mixins')
+  .render(...)
+</code></pre>
+
+<h2 id="importpath">.import(path)</h2>
+
+<p>Defer importing of the given <code>path</code> until evaluation is performed. The example below is essentially the same as doing <code>@import 'mixins/vendor'</code> within your Stylus sheet.</p>
+
+<pre><code>  var stylus = require('../')
+    , str = require('fs').readFileSync(__dirname + '/test.styl', 'utf8');
+
+  stylus(str)
+    .set('filename', __dirname + '/test.styl')
+    .import('mixins/vendor')
+    .render(function(err, css){
+    if (err) throw err;
+    console.log(css);
+  });
+</code></pre>
+
+<h2 id="definename-node">.define(name, node)</h2>
+
+<p>By passing a <code>Node</code>, we may define a global variable. This is useful when exposing conditional features within your library depending on the availability of another. For example the <strong>Nib</strong> extension library conditionally supports node-canvas, providing image generation. </p>
+
+<p>However, this is not always available, so Nib may define:</p>
+
+<pre><code> .define('has-canvas', stylus.nodes.false);
+ .define('some-setting', new stylus.nodes.String('some value'));
+</code></pre>
+
+<p>Stylus also casts JavaScript values to their Stylus equivalents when possible. Here are a few examples:</p>
+
+<pre><code> .define('string', 'some string')
+ .define('number', 15.5)
+ .define('some-bool', true)
+ .define('list', [1,2,3])
+ .define('list', [1,2,[3,4,[5,6]]])
+ .define('list', { foo: 'bar', bar: 'baz' })
+ .define('families', ['Helvetica Neue', 'Helvetica', 'sans-serif'])
+</code></pre>
+
+<p>These same rules apply to return values in js functions as well:</p>
+
+<pre><code> .define('get-list', function(){
+   return ['foo', 'bar', 'baz'];
+ })
+</code></pre>
+
+<h2 id="definename-fn">.define(name, fn)</h2>
+
+<p>This method allows you to provide a JavaScript-defined function to Stylus. Think of these as you would JavaScript-to-C++ bindings. When there’s something you cannot do in Stylus, define it in JavaScript!</p>
+
+<p>In this example, we define four functions: <code>add()</code>, <code>sub()</code>, <code>image-width()</code>, and <code>image-height()</code>. These functions must return a <code>Node</code>, this constructor and the other nodes are available via <code>stylus.nodes</code>.</p>
+
+<pre><code>  var stylus = require('../')
+    , nodes = stylus.nodes
+    , utils = stylus.utils
+    , fs = require('fs');
+
+  function add(a, b) {
+    return a.operate('+', b);
+  }
+
+  function sub(a, b) {
+    return a.operate('-', b);
+  }
+
+  function imageDimensions(img) {
+    // assert that the node (img) is a String node, passing
+    // the param name for error reporting
+    utils.assertType(img, 'string', 'img');
+    var path = img.val;
+
+    // Grab bytes necessary to retrieve dimensions.
+    // if this was real you would do this per format,
+    // instead of reading the entire image :)
+    var data = fs.readFileSync(__dirname + '/' + path);
+
+    // GIF
+    // of course you would support.. more :)
+    if ('GIF' == data.slice(0, 3).toString()) {
+      var w = data.slice(6, 8)
+        , h = data.slice(8, 10);
+      w = w[1] &lt;&lt; 8 | w[0];
+      h = h[1] &lt;&lt; 8 | h[0];
+    }
+
+    return [w, h];
+  }
+
+  function imageWidth(img) {
+    return new nodes.Unit(imageDimensions(img)[0]);
+  }
+
+  function imageHeight(img) {
+    return new nodes.Unit(imageDimensions(img)[1]);
+  }
+
+  stylus(str)
+    .set('filename', 'js-functions.styl')
+    .define('add', add)
+    .define('sub', sub)
+    .define('image-width', imageWidth)
+    .define('image-height', imageHeight)
+    .render(function(err, css){
+      if (err) throw err;
+      console.log(css);
+    });
+</code></pre>
+
+<p>For further reference (until documentation is complete) please see the following files:</p>
+
+<ul>
+  <li><code>lib/nodes/*</code></li>
+  <li><code>lib/utils.js</code></li>
+</ul>
+
+<h2 id="usefn">.use(fn)</h2>
+
+<p>When called, the given <code>fn</code> is invoked with the renderer, allowing all of the methods above to be used. This allows for plugins to easily expose themselves, defining functions, paths etc.</p>
+
+<pre><code>var mylib = function(style){
+  style.define('add', add);
+  style.define('sub', sub);
+};
+
+stylus(str)
+  .use(mylib)
+  .render(...)
+</code></pre>
+
+<p>When calling the <code>render()</code> method with options, the <code>use</code> option can be given<br />
+  a function or array of functions to be invoked with the renderer.</p>
+
+<pre><code>stylus.render(str, { use: mylib }, function(err, css){
+  if (err) throw err;
+  console.log(css);
+});
+</code></pre>
+
+
+        </div>
+
+        <a href="https://github.com/LearnBoost/stylus/" class="meow">
+          <img src="../img/octocat.svg">
+        </a>
+      </main>
+
+    </div>
+
+
+    <!--[if lt IE 9]>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-2.1.1.min.js"><\/script>')</script>
+    <!--<![endif]-->
+    <script src="../js/plugins.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59751437-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>

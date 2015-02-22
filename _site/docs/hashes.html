@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Stylus</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css">
+    <!--[if lt IE 9]><script src="../js/vendor/selectivizr-1.0.2.min.js"></script><![endif]-->
+    <script src="../js/vendor/modernizr-2.8.2.min.js"></script>
+    <script src="../js/vendor/respond.js-1.4.2.min.js"></script>
+    <link rel="shortcut icon" href="../img/favicon.ico">
+  </head>
+  <body>
+    <!--[if lt IE 9]>
+      <div class="browsehappy">
+        <p>
+          You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve your experience.
+        </p>
+      </div>
+    <![endif]-->
+
+
+    <div class="wrap">
+
+      <aside class="sidebar">
+        <a href="/">
+          <img src="../img/stylus-logo-white.svg">
+        </a>
+        <nav>
+          
+          
+            <a href="/docs/atrules.html">Atrules</a>
+          
+            <a href="/docs/bifs.html">Bifs</a>
+          
+            <a href="/docs/block.html">Block</a>
+          
+            <a href="/docs/comments.html">Comments</a>
+          
+            <a href="/docs/compare.html">Compare</a>
+          
+            <a href="/docs/conditionals.html">Conditionals</a>
+          
+            <a href="/docs/css-style.html">Css Style</a>
+          
+            <a href="/docs/error-reporting.html">Error Reporting</a>
+          
+            <a href="/docs/escape.html">Escape</a>
+          
+            <a href="/docs/executable.html">Executable</a>
+          
+            <a href="/docs/extend.html">Extend</a>
+          
+            <a href="/docs/firebug.html">Firebug</a>
+          
+            <a href="/docs/font-face.html">Font Face</a>
+          
+            <a href="/docs/functions.html">Functions</a>
+          
+            <a href="/docs/functions.url.html">Functions.url</a>
+          
+            <a href="/docs/gedit.html">Gedit</a>
+          
+            <a href="/docs/hashes.html">Hashes</a>
+          
+            <a href="/docs/import.html">Import</a>
+          
+            <a href="/docs/interpolation.html">Interpolation</a>
+          
+            <a href="/docs/introspection.html">Introspection</a>
+          
+            <a href="/docs/iteration.html">Iteration</a>
+          
+            <a href="/docs/js.html">Js</a>
+          
+            <a href="/docs/keyframes.html">Keyframes</a>
+          
+            <a href="/docs/kwargs.html">Kwargs</a>
+          
+            <a href="/docs/literal.html">Literal</a>
+          
+            <a href="/docs/media.html">Media</a>
+          
+            <a href="/docs/middleware.html">Middleware</a>
+          
+            <a href="/docs/mixins.html">Mixins</a>
+          
+            <a href="/docs/operators.html">Operators</a>
+          
+            <a href="/docs/selectors.html">Selectors</a>
+          
+            <a href="/docs/sourcemaps.html">Sourcemaps</a>
+          
+            <a href="/docs/textmate.html">Textmate</a>
+          
+            <a href="/docs/vargs.html">Vargs</a>
+          
+            <a href="/docs/variables.html">Variables</a>
+          
+        </nav>
+        <a href="http://launchboxhq.com">
+          <img class="credit" src="../img/launchbox.svg" title="Web-design and hosting">
+        </a>
+        <a href="https://learnboost.com">
+          <img class="credit" src="../img/learnboost.png" title="Creators of Stylus">
+        </a>
+        <a href="https://mojotech.com">
+          <img class="credit" src="../img/mojotech.png" title="Logo">
+        </a>
+      </aside>
+
+      <main class="content">
+        <header class="logo">
+          <a href="/">
+            <img src="../img/stylus-logo.svg">
+          </a>
+        </header>
+
+        <div class="docs">
+
+          <h1 id="hashes">Hashes</h1>
+
+<p>In <code>0.39.0</code> version Stylus got hash objects.</p>
+
+<h2 id="define">Define</h2>
+
+<p>You can define a hash using the curly braces and colons to divide the keys and values:</p>
+
+<pre><code>foo = {
+  bar: baz,
+  baz: raz
+}
+</code></pre>
+
+<p>the keys should be either proper idents or strings:</p>
+
+<pre><code>foo = {
+  bar: baz,
+  'baz': raz,
+  '0': raz
+}
+</code></pre>
+
+<p>When you already have a hash, you can set its values using brackets and strings inside:</p>
+
+<pre><code>foo = {}
+foo['bar'] = baz
+foo['baz'] = raz
+</code></pre>
+
+<p>Note that while you can’t use variables or interpolations in curly braces defines, you can use variables inside brackets:</p>
+
+<pre><code>foo = {}
+bar = 'baz'
+foo[bar] = raz
+
+foo.baz
+// =&gt; raz
+</code></pre>
+
+<h2 id="getters">Getters</h2>
+
+<p>For retrieving values from hashes you can use the dot for idents:</p>
+
+<pre><code>foo = { bar: "baz" }
+
+foo.bar
+// =&gt; "baz"
+</code></pre>
+
+<p>Or brackets with strings for anything:</p>
+
+<pre><code>foo = { "%": 10 }
+baz = "%"
+
+foo[baz]
+// =&gt; 10
+</code></pre>
+
+<p>You can use any combinations you want:</p>
+
+<pre><code>foo = {
+  bar: {
+    baz: {
+      raz: 10px
+    }
+  }
+}
+
+qux = "raz"
+foo["bar"].baz[qux]
+// =&gt; 10px
+</code></pre>
+
+<h2 id="interpolation">Interpolation</h2>
+
+<p>Hashes used inside an interpolation would output the content of the hashes as CSS (without almost any Stylus features though):</p>
+
+<pre><code>foo = {
+  width: 10px,
+  height: 20px,
+  '&amp;:hover': {
+    padding: 0
+
+  }
+}
+
+.bar
+  {foo}
+
+// =&gt; .bar {
+//      width: 10px;
+//      height: 20px;
+//    }
+//    .bar:hover {
+//      padding: 0;
+//    }
+</code></pre>
+
+<h2 id="other-stuff">Other stuff</h2>
+
+<p>You can use other normal Stylus stuff with hashes, like <code>length()</code>:</p>
+
+<pre><code>foo = { bar: 'a', baz: 'b' }
+
+length(foo)
+// =&gt; 2
+</code></pre>
+
+<p>You can iterate through hashes with optional key param:</p>
+
+<pre><code>foo = { width: 10px, height: 20px }
+
+for key, value in foo
+  {key}: value
+
+// =&gt; width: 10px;
+//    height: 20px;
+</code></pre>
+
+<p>You can check existence of a key in hash using <code>in</code>:</p>
+
+<pre><code>foo = { bar: 10px}
+
+bar in foo
+// =&gt; true
+
+baz in foo
+// =&gt; false
+</code></pre>
+
+<p>You can get keys or values of the hash using corresponding bifs:</p>
+
+<pre><code>foo = { bar: 'a', baz: 'b' }
+
+keys(foo)
+// =&gt; 'bar' 'baz'
+
+values(foo)
+// =&gt; 'a' 'b'
+</code></pre>
+
+<p>You can remove a key from the hash using <code>remove</code> bif:</p>
+
+<pre><code>obj = { foo: 1, bar: 2 }
+remove(obj, 'foo')
+// =&gt; {"bar":"(2)"}
+</code></pre>
+
+<p>And you can use <code>merge</code> (aliased as <code>extend</code>) to merge hashes:</p>
+
+<pre><code>obj = {
+  foo: 'foo'
+  bar: 'bar'
+}
+
+obj2 = {
+  baz: 'baz'
+}
+
+merge(obj, obj2)
+// =&gt; {"foo":"('foo')","bar":"('bar')","baz":"('baz')"}
+</code></pre>
+
+
+        </div>
+
+        <a href="https://github.com/LearnBoost/stylus/" class="meow">
+          <img src="../img/octocat.svg">
+        </a>
+      </main>
+
+    </div>
+
+
+    <!--[if lt IE 9]>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-2.1.1.min.js"><\/script>')</script>
+    <!--<![endif]-->
+    <script src="../js/plugins.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59751437-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>

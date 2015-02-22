@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Stylus</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css">
+    <!--[if lt IE 9]><script src="../js/vendor/selectivizr-1.0.2.min.js"></script><![endif]-->
+    <script src="../js/vendor/modernizr-2.8.2.min.js"></script>
+    <script src="../js/vendor/respond.js-1.4.2.min.js"></script>
+    <link rel="shortcut icon" href="../img/favicon.ico">
+  </head>
+  <body>
+    <!--[if lt IE 9]>
+      <div class="browsehappy">
+        <p>
+          You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve your experience.
+        </p>
+      </div>
+    <![endif]-->
+
+
+    <div class="wrap">
+
+      <aside class="sidebar">
+        <a href="/">
+          <img src="../img/stylus-logo-white.svg">
+        </a>
+        <nav>
+          
+          
+            <a href="/docs/atrules.html">Atrules</a>
+          
+            <a href="/docs/bifs.html">Bifs</a>
+          
+            <a href="/docs/block.html">Block</a>
+          
+            <a href="/docs/comments.html">Comments</a>
+          
+            <a href="/docs/compare.html">Compare</a>
+          
+            <a href="/docs/conditionals.html">Conditionals</a>
+          
+            <a href="/docs/css-style.html">Css Style</a>
+          
+            <a href="/docs/error-reporting.html">Error Reporting</a>
+          
+            <a href="/docs/escape.html">Escape</a>
+          
+            <a href="/docs/executable.html">Executable</a>
+          
+            <a href="/docs/extend.html">Extend</a>
+          
+            <a href="/docs/firebug.html">Firebug</a>
+          
+            <a href="/docs/font-face.html">Font Face</a>
+          
+            <a href="/docs/functions.html">Functions</a>
+          
+            <a href="/docs/functions.url.html">Functions.url</a>
+          
+            <a href="/docs/gedit.html">Gedit</a>
+          
+            <a href="/docs/hashes.html">Hashes</a>
+          
+            <a href="/docs/import.html">Import</a>
+          
+            <a href="/docs/interpolation.html">Interpolation</a>
+          
+            <a href="/docs/introspection.html">Introspection</a>
+          
+            <a href="/docs/iteration.html">Iteration</a>
+          
+            <a href="/docs/js.html">Js</a>
+          
+            <a href="/docs/keyframes.html">Keyframes</a>
+          
+            <a href="/docs/kwargs.html">Kwargs</a>
+          
+            <a href="/docs/literal.html">Literal</a>
+          
+            <a href="/docs/media.html">Media</a>
+          
+            <a href="/docs/middleware.html">Middleware</a>
+          
+            <a href="/docs/mixins.html">Mixins</a>
+          
+            <a href="/docs/operators.html">Operators</a>
+          
+            <a href="/docs/selectors.html">Selectors</a>
+          
+            <a href="/docs/sourcemaps.html">Sourcemaps</a>
+          
+            <a href="/docs/textmate.html">Textmate</a>
+          
+            <a href="/docs/vargs.html">Vargs</a>
+          
+            <a href="/docs/variables.html">Variables</a>
+          
+        </nav>
+        <a href="http://launchboxhq.com">
+          <img class="credit" src="../img/launchbox.svg" title="Web-design and hosting">
+        </a>
+        <a href="https://learnboost.com">
+          <img class="credit" src="../img/learnboost.png" title="Creators of Stylus">
+        </a>
+        <a href="https://mojotech.com">
+          <img class="credit" src="../img/mojotech.png" title="Logo">
+        </a>
+      </aside>
+
+      <main class="content">
+        <header class="logo">
+          <a href="/">
+            <img src="../img/stylus-logo.svg">
+          </a>
+        </header>
+
+        <div class="docs">
+
+          <h1 id="mixins">Mixins</h1>
+
+<p>Both mixins and functions are defined in the same manner, but they are applied in different ways. </p>
+
+<p>For example, we have a <code>border-radius(n)</code> function defined below, which is invoked as a <em>mixin</em> (i.e., invoked as a statement, rather than part of an expression).</p>
+
+<p>When <code>border-radius()</code> is invoked within a selector, the properties are expanded and copied into the selector.</p>
+
+<pre><code>border-radius(n)
+  -webkit-border-radius n
+  -moz-border-radius n
+  border-radius n
+
+form input[type=button]
+  border-radius(5px)
+</code></pre>
+
+<p>Compiles to:</p>
+
+<pre><code>form input[type=button] {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+</code></pre>
+
+<p>When using mixins you can omit the parentheses altogether, providing fantastic transparent vendor property support!</p>
+
+<pre><code>border-radius(n)
+  -webkit-border-radius n
+  -moz-border-radius n
+  border-radius n
+
+form input[type=button]
+  border-radius 5px
+</code></pre>
+
+<p>Note that the <code>border-radius</code> within our mixin is treated as a property, and not a recursive function invocation. </p>
+
+<p>To take this further, we can utilize the automatic <code>arguments</code> local variable, containing the expression passed, allowing multiple values to be passed:</p>
+
+<pre><code>border-radius()
+  -webkit-border-radius arguments
+  -moz-border-radius arguments
+  border-radius arguments
+</code></pre>
+
+<p>Now we can pass values like <code>border-radius 1px 2px / 3px 4px</code>!</p>
+
+<p>Another great use of this is the addition of transparent support for vendor-specifics—such as <code>opacity</code> support for IE:</p>
+
+<pre><code>    support-for-ie ?= true
+
+    opacity(n)
+      opacity n
+      if support-for-ie
+        filter unquote('progid:DXImageTransform.Microsoft.Alpha(Opacity=' + round(n * 100) + ')')
+
+    #logo
+      &amp;:hover
+        opacity 0.5
+</code></pre>
+
+<p>Rendering:</p>
+
+<pre><code>    #logo:hover {
+      opacity: 0.5;
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+    }
+</code></pre>
+
+<h2 id="parent-references">Parent References</h2>
+
+<p>Mixins may utilize the parent reference character <code>&amp;</code>, acting on the parent instead of further nesting. </p>
+
+<p>For example, let’s say we want to create a <code>stripe(even, odd)</code> mixin for striping table rows. We provide both <code>even</code> and <code>odd</code> with default color values, and assign the <code>background-color</code> property on the row. Nested within the <code>tr</code> we use <code>&amp;</code> to reference the <code>tr</code>, providing the <code>even</code> color.</p>
+
+<pre><code> stripe(even = #fff, odd = #eee)
+   tr
+     background-color odd
+     &amp;.even
+     &amp;:nth-child(even)
+       background-color even
+</code></pre>
+
+<p>We may then utilize the mixin as shown below:</p>
+
+<pre><code> table
+   stripe()
+   td
+     padding 4px 10px
+
+ table#users
+   stripe(#303030, #494848)
+   td
+     color white
+</code></pre>
+
+<p>Alternatively, <code>stripe()</code> could be defined without parent references:</p>
+
+<pre><code>stripe(even = #fff, odd = #eee)
+  tr
+    background-color odd
+  tr.even
+  tr:nth-child(even)
+    background-color even
+</code></pre>
+
+<p>If we wished, we could invoke <code>stripe()</code> as if it were a property:</p>
+
+<pre><code>stripe #fff #000
+</code></pre>
+
+<h2 id="block-mixins">Block mixins</h2>
+
+<p>You can pass blocks to mixins by calling mixin with <code>+</code> prefix:</p>
+
+<pre><code>+foo()
+  width: 10px
+</code></pre>
+
+<p>The passed block would be available inside the mixin as <code>block</code> variable, that then could be used with interpolation:</p>
+
+<pre><code>foo()
+  .bar
+    {block}
+
++foo()
+  width: 10px
+
+=&gt; .bar {
+     width: 10px;
+   }
+</code></pre>
+
+<p>This feature is in its rough state ATM, but would be enhanced in the future.</p>
+
+<h2 id="mixing-mixins-in-mixins">Mixing Mixins in Mixins</h2>
+
+<p>Mixins can (of course!) utilize other mixins, building upon their own selectors and properties. </p>
+
+<p>For example, below we create <code>comma-list()</code> to inline (via <code>inline-list()</code>) and comma-separate an unordered list.</p>
+
+<pre><code> inline-list()
+   li
+     display inline
+
+ comma-list()
+   inline-list()
+   li
+     &amp;:after
+       content ', '
+     &amp;:last-child:after
+       content ''
+
+ ul
+   comma-list()
+</code></pre>
+
+<p>Rendering:</p>
+
+<pre><code>ul li:after {
+  content: ", ";
+}
+ul li:last-child:after {
+  content: "";
+}
+ul li {
+  display: inline;
+}
+</code></pre>
+
+
+
+        </div>
+
+        <a href="https://github.com/LearnBoost/stylus/" class="meow">
+          <img src="../img/octocat.svg">
+        </a>
+      </main>
+
+    </div>
+
+
+    <!--[if lt IE 9]>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-2.1.1.min.js"><\/script>')</script>
+    <!--<![endif]-->
+    <script src="../js/plugins.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59751437-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>

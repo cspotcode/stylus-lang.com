@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Stylus</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css">
+    <!--[if lt IE 9]><script src="../js/vendor/selectivizr-1.0.2.min.js"></script><![endif]-->
+    <script src="../js/vendor/modernizr-2.8.2.min.js"></script>
+    <script src="../js/vendor/respond.js-1.4.2.min.js"></script>
+    <link rel="shortcut icon" href="../img/favicon.ico">
+  </head>
+  <body>
+    <!--[if lt IE 9]>
+      <div class="browsehappy">
+        <p>
+          You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve your experience.
+        </p>
+      </div>
+    <![endif]-->
+
+
+    <div class="wrap">
+
+      <aside class="sidebar">
+        <a href="/">
+          <img src="../img/stylus-logo-white.svg">
+        </a>
+        <nav>
+          
+          
+            <a href="/docs/atrules.html">Atrules</a>
+          
+            <a href="/docs/bifs.html">Bifs</a>
+          
+            <a href="/docs/block.html">Block</a>
+          
+            <a href="/docs/comments.html">Comments</a>
+          
+            <a href="/docs/compare.html">Compare</a>
+          
+            <a href="/docs/conditionals.html">Conditionals</a>
+          
+            <a href="/docs/css-style.html">Css Style</a>
+          
+            <a href="/docs/error-reporting.html">Error Reporting</a>
+          
+            <a href="/docs/escape.html">Escape</a>
+          
+            <a href="/docs/executable.html">Executable</a>
+          
+            <a href="/docs/extend.html">Extend</a>
+          
+            <a href="/docs/firebug.html">Firebug</a>
+          
+            <a href="/docs/font-face.html">Font Face</a>
+          
+            <a href="/docs/functions.html">Functions</a>
+          
+            <a href="/docs/functions.url.html">Functions.url</a>
+          
+            <a href="/docs/gedit.html">Gedit</a>
+          
+            <a href="/docs/hashes.html">Hashes</a>
+          
+            <a href="/docs/import.html">Import</a>
+          
+            <a href="/docs/interpolation.html">Interpolation</a>
+          
+            <a href="/docs/introspection.html">Introspection</a>
+          
+            <a href="/docs/iteration.html">Iteration</a>
+          
+            <a href="/docs/js.html">Js</a>
+          
+            <a href="/docs/keyframes.html">Keyframes</a>
+          
+            <a href="/docs/kwargs.html">Kwargs</a>
+          
+            <a href="/docs/literal.html">Literal</a>
+          
+            <a href="/docs/media.html">Media</a>
+          
+            <a href="/docs/middleware.html">Middleware</a>
+          
+            <a href="/docs/mixins.html">Mixins</a>
+          
+            <a href="/docs/operators.html">Operators</a>
+          
+            <a href="/docs/selectors.html">Selectors</a>
+          
+            <a href="/docs/sourcemaps.html">Sourcemaps</a>
+          
+            <a href="/docs/textmate.html">Textmate</a>
+          
+            <a href="/docs/vargs.html">Vargs</a>
+          
+            <a href="/docs/variables.html">Variables</a>
+          
+        </nav>
+        <a href="http://launchboxhq.com">
+          <img class="credit" src="../img/launchbox.svg" title="Web-design and hosting">
+        </a>
+        <a href="https://learnboost.com">
+          <img class="credit" src="../img/learnboost.png" title="Creators of Stylus">
+        </a>
+        <a href="https://mojotech.com">
+          <img class="credit" src="../img/mojotech.png" title="Logo">
+        </a>
+      </aside>
+
+      <main class="content">
+        <header class="logo">
+          <a href="/">
+            <img src="../img/stylus-logo.svg">
+          </a>
+        </header>
+
+        <div class="docs">
+
+          <h1 id="import-and-require">@import and @require</h1>
+
+<p>Stylus supports both literal <strong>@import</strong> for CSS, as well as dynamic importing or requiring of other Stylus sheets.</p>
+
+<h2 id="literal-css">Literal CSS</h2>
+
+<p>Any filename with the extension <code>.css</code> will become a literal. For example:</p>
+
+<pre><code> @import "reset.css"
+</code></pre>
+
+<p>Render the literal CSS <strong>@import</strong> shown below:</p>
+
+<pre><code> @import "reset.css"
+</code></pre>
+
+<h2 id="stylus-import">Stylus Import</h2>
+
+<p><em>Disclaimer: In all places the <strong>@import</strong> is used with Stylus sheets, the <strong>@require</strong> could be used</em></p>
+
+<p>When using <strong>@import</strong> without the <code>.css</code> extension, it’s assumed to be a Stylus sheet (e.g., <code>@import "mixins/border-radius"</code>).</p>
+
+<p><strong>@import</strong> works by iterating an array of directories, and checking if this file lives in any of them (similar to node’s <code>require.paths</code>). This array defaults to a single path, which is derived from the <code>filename</code> option’s <code>dirname</code>. So, if your filename is <code>/tmp/testing/stylus/main.styl</code>, then import will look in <code>/tmp/testing/stylus/</code>.</p>
+
+<p><strong>@import</strong> also supports index styles. This means when you <code>@import blueprint</code>, it will resolve <strong>either</strong> <code>blueprint.styl</code> <strong>or</strong> <code>blueprint/index.styl</code>.  This is really useful for libraries that want to expose all their features, while still allowing feature subsets to be imported.</p>
+
+<p>For example, a common lib structure might be:</p>
+
+<pre><code>./tablet
+  |-- index.styl
+  |-- vendor.styl
+  |-- buttons.styl
+  |-- images.styl
+</code></pre>
+
+<p>In the example below, we set the <code>paths</code> options to provide additional paths to Stylus. Within <code>./test.styl</code>, we could then <code>@import "mixins/border-radius"</code>, or <code>@import "border-radius"</code> (since <code>./mixins</code> is exposed to Stylus).</p>
+
+<pre><code>  /**
+   * Module dependencies.
+   */
+
+  var stylus = require('../')
+    , str = require('fs').readFileSync(__dirname + '/test.styl', 'utf8');
+
+  var paths = [
+      __dirname
+    , __dirname + '/mixins'
+  ];
+
+  stylus(str)
+    .set('filename', __dirname + '/test.styl')
+    .set('paths', paths)
+    .render(function(err, css){
+      if (err) throw err;
+      console.log(css);
+    });
+</code></pre>
+
+<h2 id="require">Require</h2>
+
+<p>Along with <code>@import</code>, Stylus also has <code>@require</code>. It works almost in the same way, with the exception of importing any given file only once.</p>
+
+<h2 id="block-level-import">Block-level import</h2>
+
+<p>Stylus supports block-level import. It means that you can use <code>@import</code> not only at root level, but also nested inside other selectors or at-rules.</p>
+
+<p>If you have a <code>bar.styl</code> with this code:</p>
+
+<pre><code>.bar
+  width: 10px;
+</code></pre>
+
+<p>Then you can import it inside a <code>foo.styl</code> like this:</p>
+
+<pre><code>.foo
+  @import 'bar.styl'
+
+@media screen and (min-width: 640px)
+  @import 'bar.styl'
+</code></pre>
+
+<p>And you’ll get this compiled CSS as a result:</p>
+
+<pre><code>.foo .bar {
+  width: 10px;
+}
+@media screen and (min-width: 640px) {
+  .bar {
+    width: 10px;
+  }
+}
+</code></pre>
+
+<h2 id="file-globbing">File globbing</h2>
+
+<p>Stylus supports <a href="https://github.com/isaacs/node-glob#readme">globbing</a>. With it you could import many files using a file mask:</p>
+
+<pre><code>@import 'product/*'
+</code></pre>
+
+<p>This would import all the stylus sheets from the <code>product</code> directory in such structure:</p>
+
+<pre><code>./product
+  |-- body.styl
+  |-- foot.styl
+  |-- head.styl
+</code></pre>
+
+<p>Note that this works with <code>@require</code> too, so if you would have also a <code>./product/index.styl</code> with this content:</p>
+
+<pre><code>@require 'head'
+@require 'body'
+@require 'foot'
+</code></pre>
+
+<p>then <code>@require 'product/*'</code> would include each individual sheet only once.</p>
+
+<h2 id="resolving-relative-urls-inside-imports">Resolving relative urls inside imports</h2>
+
+<p>By default Stylus doesn’t resolve the urls in imported <code>.styl</code> files, so if you’d happen to have a <code>foo.styl</code> with <code>@import "bar/bar.styl"</code> which would have <code>url("baz.png")</code>, it would be <code>url("baz.png")</code> too in a resulting CSS.</p>
+
+<p>But you can alter this behavior by using <code>--resolve-url</code> (or just <code>-r</code>) CLI option to get <code>url("bar/baz.png")</code> in your resulting CSS.</p>
+
+<h2 id="javascript-import-api">JavaScript Import API</h2>
+
+<p>When using the <code>.import(path)</code> method, these imports are deferred until evaluation:</p>
+
+<pre><code>   var stylus = require('../')
+     , str = require('fs').readFileSync(__dirname + '/test.styl', 'utf8');
+
+   stylus(str)
+     .set('filename', __dirname + '/test.styl')
+     .import('mixins/vendor')
+     .render(function(err, css){
+     if (err) throw err;
+     console.log(css);
+   });
+</code></pre>
+
+<p>The following statement…</p>
+
+<pre><code> @import 'mixins/vendor'
+</code></pre>
+
+<p>…is equivalent to…</p>
+
+<pre><code> .import('mixins/vendor')
+</code></pre>
+
+
+
+        </div>
+
+        <a href="https://github.com/LearnBoost/stylus/" class="meow">
+          <img src="../img/octocat.svg">
+        </a>
+      </main>
+
+    </div>
+
+
+    <!--[if lt IE 9]>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-2.1.1.min.js"><\/script>')</script>
+    <!--<![endif]-->
+    <script src="../js/plugins.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59751437-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>

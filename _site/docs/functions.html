@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Stylus</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css">
+    <!--[if lt IE 9]><script src="../js/vendor/selectivizr-1.0.2.min.js"></script><![endif]-->
+    <script src="../js/vendor/modernizr-2.8.2.min.js"></script>
+    <script src="../js/vendor/respond.js-1.4.2.min.js"></script>
+    <link rel="shortcut icon" href="../img/favicon.ico">
+  </head>
+  <body>
+    <!--[if lt IE 9]>
+      <div class="browsehappy">
+        <p>
+          You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve your experience.
+        </p>
+      </div>
+    <![endif]-->
+
+
+    <div class="wrap">
+
+      <aside class="sidebar">
+        <a href="/">
+          <img src="../img/stylus-logo-white.svg">
+        </a>
+        <nav>
+          
+          
+            <a href="/docs/atrules.html">Atrules</a>
+          
+            <a href="/docs/bifs.html">Bifs</a>
+          
+            <a href="/docs/block.html">Block</a>
+          
+            <a href="/docs/comments.html">Comments</a>
+          
+            <a href="/docs/compare.html">Compare</a>
+          
+            <a href="/docs/conditionals.html">Conditionals</a>
+          
+            <a href="/docs/css-style.html">Css Style</a>
+          
+            <a href="/docs/error-reporting.html">Error Reporting</a>
+          
+            <a href="/docs/escape.html">Escape</a>
+          
+            <a href="/docs/executable.html">Executable</a>
+          
+            <a href="/docs/extend.html">Extend</a>
+          
+            <a href="/docs/firebug.html">Firebug</a>
+          
+            <a href="/docs/font-face.html">Font Face</a>
+          
+            <a href="/docs/functions.html">Functions</a>
+          
+            <a href="/docs/functions.url.html">Functions.url</a>
+          
+            <a href="/docs/gedit.html">Gedit</a>
+          
+            <a href="/docs/hashes.html">Hashes</a>
+          
+            <a href="/docs/import.html">Import</a>
+          
+            <a href="/docs/interpolation.html">Interpolation</a>
+          
+            <a href="/docs/introspection.html">Introspection</a>
+          
+            <a href="/docs/iteration.html">Iteration</a>
+          
+            <a href="/docs/js.html">Js</a>
+          
+            <a href="/docs/keyframes.html">Keyframes</a>
+          
+            <a href="/docs/kwargs.html">Kwargs</a>
+          
+            <a href="/docs/literal.html">Literal</a>
+          
+            <a href="/docs/media.html">Media</a>
+          
+            <a href="/docs/middleware.html">Middleware</a>
+          
+            <a href="/docs/mixins.html">Mixins</a>
+          
+            <a href="/docs/operators.html">Operators</a>
+          
+            <a href="/docs/selectors.html">Selectors</a>
+          
+            <a href="/docs/sourcemaps.html">Sourcemaps</a>
+          
+            <a href="/docs/textmate.html">Textmate</a>
+          
+            <a href="/docs/vargs.html">Vargs</a>
+          
+            <a href="/docs/variables.html">Variables</a>
+          
+        </nav>
+        <a href="http://launchboxhq.com">
+          <img class="credit" src="../img/launchbox.svg" title="Web-design and hosting">
+        </a>
+        <a href="https://learnboost.com">
+          <img class="credit" src="../img/learnboost.png" title="Creators of Stylus">
+        </a>
+        <a href="https://mojotech.com">
+          <img class="credit" src="../img/mojotech.png" title="Logo">
+        </a>
+      </aside>
+
+      <main class="content">
+        <header class="logo">
+          <a href="/">
+            <img src="../img/stylus-logo.svg">
+          </a>
+        </header>
+
+        <div class="docs">
+
+          <h1 id="functions">Functions</h1>
+
+<p>Stylus features powerful in-language function definitions. Function definitions appear identical to mixins; however, functions may return a value.</p>
+
+<h2 id="return-values">Return Values</h2>
+
+<p>Let’s try a trivial example: creating a function that adds two numbers.</p>
+
+<pre><code>add(a, b)
+  a + b
+</code></pre>
+
+<p>We can then use this function in conditions, in property values, etc.</p>
+
+<pre><code> body 
+   padding add(10px, 5)
+</code></pre>
+
+<p>Rendering:</p>
+
+<pre><code> body {
+   padding: 15px;
+ }
+</code></pre>
+
+<h2 id="argument-defaults">Argument Defaults</h2>
+
+<p>Optional arguments may default to a given expression. With Stylus we may even default arguments to earlier arguments! </p>
+
+<p>For example:</p>
+
+<pre><code> add(a, b = a)
+   a + b
+
+ add(10, 5)
+ // =&gt; 15
+ 
+ add(10)
+ // =&gt; 20
+</code></pre>
+
+<p><strong>Note:</strong> Since argument defaults are assignments, we can also use function calls for defaults:</p>
+
+<pre><code> add(a, b = unit(a, px))
+   a + b
+</code></pre>
+
+<h2 id="named-parameters">Named Parameters</h2>
+
+<p>Functions accept named parameters. This frees you from remembering the order of parameters, or simply improves the readability of your code.</p>
+
+<p>For example:</p>
+
+<pre><code>subtract(a, b)
+  a - b
+
+subtract(b: 10, a: 25)
+</code></pre>
+
+<h2 id="function-bodies">Function Bodies</h2>
+
+<p>We can take our simple <code>add()</code> function further. Let’s casting all units passed as <code>px</code> via the <code>unit()</code> built-in. It reassigns each argument, and provides a unit-type string (or identifier), which ignores unit conversion.</p>
+
+<pre><code> add(a, b = a)
+   a = unit(a, px)
+   b = unit(b, px)
+   a + b
+
+ add(15%, 10deg)
+ // =&gt; 25
+</code></pre>
+
+<h2 id="multiple-return-values">Multiple Return Values</h2>
+
+<p>Stylus functions can return several values—just as you can assign several values to a variable. </p>
+
+<p>For example, the following is a valid assignment:</p>
+
+<pre><code>   sizes = 15px 10px
+ 
+   sizes[0]
+   // =&gt; 15px 
+</code></pre>
+
+<p>Similarly, we may return several values:</p>
+
+<pre><code>   sizes()
+     15px 10px
+
+   sizes()[0]
+   // =&gt; 15px
+</code></pre>
+
+<p>One slight exception is when return values are identifiers. For example, the following looks like a property assignment to Stylus (since no operators are present):</p>
+
+<pre><code> swap(a, b)
+   b a
+</code></pre>
+
+<p>To disambiguate, we can either wrap with parentheses, or use the <code>return</code> keyword:</p>
+
+<pre><code>  swap(a, b)
+    (b a)
+
+  swap(a, b)
+    return b a
+</code></pre>
+
+<h2 id="conditionals">Conditionals</h2>
+
+<p>Let’s say we want to create a function named <code>stringish()</code> to determine whether the argument can be transformed to a string. We check if <code>val</code> is a string, or an ident (which is string-like). Because undefined identifiers yield themselves as the value, we may compare them to themselves as shown below (where <code>yes</code> and <code>no</code> are used in place of <code>true</code> and <code>false</code>):</p>
+
+<pre><code> stringish(val)
+   if val is a 'string' or val is a 'ident'
+     yes
+   else
+     no
+</code></pre>
+
+<p>Usage:</p>
+
+<pre><code> stringish('yay') == yes
+ // =&gt; true
+   
+ stringish(yay) == yes
+ // =&gt; true
+   
+ stringish(0) == no
+ // =&gt; true
+</code></pre>
+
+<p><strong>note</strong>: <code>yes</code> and <code>no</code> are not boolean literals. They are simply undefined identifiers in this case.</p>
+
+<p>Another example:</p>
+
+<pre><code>compare(a, b)
+  if a &gt; b
+    higher
+  else if a &lt; b
+    lower
+  else
+    equal
+</code></pre>
+
+<p>Usage:</p>
+
+<pre><code>compare(5, 2)
+// =&gt; higher
+
+compare(1, 5)
+// =&gt; lower
+
+compare(10, 10)
+// =&gt; equal
+</code></pre>
+
+<h2 id="aliasing">Aliasing</h2>
+
+<p>To alias a function, simply assign a function’s name to a new identifier. For example, our <code>add()</code> function could be aliased as <code>plus()</code>, like so:</p>
+
+<pre><code>  plus = add
+  
+  plus(1, 2)
+  // =&gt; 3
+</code></pre>
+
+<h2 id="variable-functions">Variable Functions</h2>
+
+<p>In the same way that we can “alias” a function, we can pass a function as well. Here, our <code>invoke()</code> function accepts a function, so we can pass it <code>add()</code> or <code>sub()</code>.</p>
+
+<pre><code>add(a, b)
+  a + b
+
+sub(a, b)
+  a - b
+
+invoke(a, b, fn)
+  fn(a, b)
+
+body
+  padding invoke(5, 10, add)
+  padding invoke(5, 10, sub)
+</code></pre>
+
+<p>Yielding:</p>
+
+<pre><code>body {
+  padding: 15;
+  padding: -5;
+}
+</code></pre>
+
+<h2 id="anonymous-functions">Anonymous functions</h2>
+
+<p>You can use anonymous functions where needed using <code>@(){}</code> syntax. Here is how you could use it to create a custom <code>sort()</code> function:</p>
+
+<pre><code>sort(list, fn = null)
+  // default sort function
+  if fn == null
+    fn = @(a, b) {
+      a &gt; b
+    }
+
+  // bubble sort
+  for $i in 1..length(list) - 1
+    for $j in 0..$i - 1
+      if fn(list[$j], list[$i])
+        $temp = list[$i]
+        list[$i] = list[$j]
+        list[$j] = $temp
+  return list
+
+  sort('e' 'c' 'f' 'a' 'b' 'd')
+  // =&gt; 'a' 'b' 'c' 'd' 'e' 'f'
+
+  sort(5 3 6 1 2 4, @(a, b){
+    a &lt; b
+  })
+  // =&gt; 6 5 4 3 2 1
+</code></pre>
+
+<h2 id="arguments">arguments</h2>
+
+<p>The <code>arguments</code> local is available to all function bodies, and contains all the arguments passed. </p>
+
+<p>For example:</p>
+
+<pre><code> sum()
+   n = 0
+   for num in arguments
+     n = n + num
+
+ sum(1,2,3,4,5)
+ // =&gt; 15
+</code></pre>
+
+<h2 id="hash-example">Hash Example</h2>
+
+<p>Below we define the <code>get(hash, key)</code> function, which returns the<br />
+ value of <code>key</code> (or <code>null</code>). We iterate each <code>pair</code> in <code>hash</code>, returning the pair’s second node when the first (the <code>key</code>) matches. </p>
+
+<pre><code>  get(hash, key)
+    return pair[1] if pair[0] == key for pair in hash
+</code></pre>
+
+<p>As demonstrated below, in-language functions—paired with robust Stylus expressions—can provide great flexibility:</p>
+
+<pre><code>  hash = (one 1) (two 2) (three 3)
+  
+  get(hash, two)
+  // =&gt; 2
+
+  get(hash, three)
+  // =&gt; 3
+
+  get(hash, something)
+  // =&gt; null
+</code></pre>
+
+
+        </div>
+
+        <a href="https://github.com/LearnBoost/stylus/" class="meow">
+          <img src="../img/octocat.svg">
+        </a>
+      </main>
+
+    </div>
+
+
+    <!--[if lt IE 9]>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-2.1.1.min.js"><\/script>')</script>
+    <!--<![endif]-->
+    <script src="../js/plugins.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59751437-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>

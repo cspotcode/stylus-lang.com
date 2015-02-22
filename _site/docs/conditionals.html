@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Stylus</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css">
+    <!--[if lt IE 9]><script src="../js/vendor/selectivizr-1.0.2.min.js"></script><![endif]-->
+    <script src="../js/vendor/modernizr-2.8.2.min.js"></script>
+    <script src="../js/vendor/respond.js-1.4.2.min.js"></script>
+    <link rel="shortcut icon" href="../img/favicon.ico">
+  </head>
+  <body>
+    <!--[if lt IE 9]>
+      <div class="browsehappy">
+        <p>
+          You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve your experience.
+        </p>
+      </div>
+    <![endif]-->
+
+
+    <div class="wrap">
+
+      <aside class="sidebar">
+        <a href="/">
+          <img src="../img/stylus-logo-white.svg">
+        </a>
+        <nav>
+          
+          
+            <a href="/docs/atrules.html">Atrules</a>
+          
+            <a href="/docs/bifs.html">Bifs</a>
+          
+            <a href="/docs/block.html">Block</a>
+          
+            <a href="/docs/comments.html">Comments</a>
+          
+            <a href="/docs/compare.html">Compare</a>
+          
+            <a href="/docs/conditionals.html">Conditionals</a>
+          
+            <a href="/docs/css-style.html">Css Style</a>
+          
+            <a href="/docs/error-reporting.html">Error Reporting</a>
+          
+            <a href="/docs/escape.html">Escape</a>
+          
+            <a href="/docs/executable.html">Executable</a>
+          
+            <a href="/docs/extend.html">Extend</a>
+          
+            <a href="/docs/firebug.html">Firebug</a>
+          
+            <a href="/docs/font-face.html">Font Face</a>
+          
+            <a href="/docs/functions.html">Functions</a>
+          
+            <a href="/docs/functions.url.html">Functions.url</a>
+          
+            <a href="/docs/gedit.html">Gedit</a>
+          
+            <a href="/docs/hashes.html">Hashes</a>
+          
+            <a href="/docs/import.html">Import</a>
+          
+            <a href="/docs/interpolation.html">Interpolation</a>
+          
+            <a href="/docs/introspection.html">Introspection</a>
+          
+            <a href="/docs/iteration.html">Iteration</a>
+          
+            <a href="/docs/js.html">Js</a>
+          
+            <a href="/docs/keyframes.html">Keyframes</a>
+          
+            <a href="/docs/kwargs.html">Kwargs</a>
+          
+            <a href="/docs/literal.html">Literal</a>
+          
+            <a href="/docs/media.html">Media</a>
+          
+            <a href="/docs/middleware.html">Middleware</a>
+          
+            <a href="/docs/mixins.html">Mixins</a>
+          
+            <a href="/docs/operators.html">Operators</a>
+          
+            <a href="/docs/selectors.html">Selectors</a>
+          
+            <a href="/docs/sourcemaps.html">Sourcemaps</a>
+          
+            <a href="/docs/textmate.html">Textmate</a>
+          
+            <a href="/docs/vargs.html">Vargs</a>
+          
+            <a href="/docs/variables.html">Variables</a>
+          
+        </nav>
+        <a href="http://launchboxhq.com">
+          <img class="credit" src="../img/launchbox.svg" title="Web-design and hosting">
+        </a>
+        <a href="https://learnboost.com">
+          <img class="credit" src="../img/learnboost.png" title="Creators of Stylus">
+        </a>
+        <a href="https://mojotech.com">
+          <img class="credit" src="../img/mojotech.png" title="Logo">
+        </a>
+      </aside>
+
+      <main class="content">
+        <header class="logo">
+          <a href="/">
+            <img src="../img/stylus-logo.svg">
+          </a>
+        </header>
+
+        <div class="docs">
+
+          <h1 id="conditionals">Conditionals</h1>
+
+<p>Conditionals provide control flow to a language which is otherwise static, providing conditional imports, mixins, functions, and more. The examples below are simply examples, and not recommended :)</p>
+
+<h2 id="if--else-if--else">if / else if / else</h2>
+
+<p>The <code>if</code> conditional works as you would expect, simply accepting an expression, evaluating the following block when <code>true</code>. Along with <code>if</code> are the typical <code>else if</code> and <code>else</code> tokens, acting as fallbacks.</p>
+
+<p>The example below would conditionally overload the <code>padding</code> property, swapping it for <code>margin</code>.</p>
+
+<pre><code>overload-padding = true
+
+if overload-padding
+  padding(y, x)
+    margin y x
+
+body
+  padding 5px 10px
+</code></pre>
+
+<p>Another example:</p>
+
+<pre><code>box(x, y, margin = false)
+  padding y x
+  if margin
+    margin y x
+
+body
+  box(5px, 10px, true)
+</code></pre>
+
+<p>Another <code>box()</code> helper:</p>
+
+<pre><code>box(x, y, margin-only = false)
+  if margin-only
+    margin y x
+  else
+    padding y x
+</code></pre>
+
+<h2 id="unless">unless</h2>
+
+<p>For users familiar with the Ruby programming language, we have the <code>unless</code> conditional. It’s basically the opposite of <code>if</code>—essentially <code>if (!(expr))</code>.</p>
+
+<p>In the example below, if <code>disable-padding-override</code> is <code>undefined</code> or <code>false</code>, <code>padding</code> will be overridden, displaying <code>margin</code> instead. But if it’s <code>true</code>, <code>padding</code> will continue outputting <code>padding 5px 10px</code> as expected.</p>
+
+<pre><code> disable-padding-override = true
+
+ unless disable-padding-override is defined and disable-padding-override
+   padding(x, y)
+     margin y x
+
+ body
+   padding 5px 10px
+</code></pre>
+
+<h2 id="postfix-conditionals">Postfix Conditionals</h2>
+
+<p>Stylus supports postfix conditionals. This means that <code>if</code> and <code>unless</code> act as operators; they evaluate the left-hand operand when the right-hand expression is truthy.</p>
+
+<p>For example let’s define <code>negative()</code> to perform some basic type checking. Below we use block-style conditionals:</p>
+
+<pre><code>  negative(n)
+    unless n is a 'unit'
+      error('invalid number')
+    if n &lt; 0
+      yes
+    else
+      no
+</code></pre>
+
+<p>Next, we utilize postfix conditionals to keep our function terse.</p>
+
+<pre><code>  negative(n)
+    error('invalid number') unless n is a 'unit'
+    return yes if n &lt; 0
+    no
+</code></pre>
+
+<p>Of course, we could take this further.  For example, we could write <code>n &lt; 0 ? yes : no</code>, or simply stick with booleans: <code>n &lt; 0</code>.</p>
+
+<p>Postfix conditionals may be applied to most single-line statements. For example, <code>@import</code>, <code>@charset</code>, mixins—and of course, properties as shown below:</p>
+
+<pre><code>  pad(types = margin padding, n = 5px)
+    padding unit(n, px) if padding in types
+    margin unit(n, px) if margin in types
+
+  body
+    pad()
+
+  body
+    pad(margin)
+
+  body
+    apply-mixins = true
+    pad(padding, 10) if apply-mixins
+</code></pre>
+
+<p>yielding:</p>
+
+<pre><code>  body {
+    padding: 5px;
+    margin: 5px;
+  }
+  body {
+    margin: 5px;
+  }
+  body {
+    padding: 10px;
+  }
+</code></pre>
+
+
+
+        </div>
+
+        <a href="https://github.com/LearnBoost/stylus/" class="meow">
+          <img src="../img/octocat.svg">
+        </a>
+      </main>
+
+    </div>
+
+
+    <!--[if lt IE 9]>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-2.1.1.min.js"><\/script>')</script>
+    <!--<![endif]-->
+    <script src="../js/plugins.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59751437-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
